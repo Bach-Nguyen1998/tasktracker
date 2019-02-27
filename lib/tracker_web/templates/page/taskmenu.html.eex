@@ -1,0 +1,5 @@
+<table class="table table-hover">
+
+<tr><td><h3><%= link "View My tasks", to: Routes.task_path(@conn, :index) %></h3></td></tr>
+<tr><td><h3><%= link "Add a New task", to: Routes.task_path(@conn, :new) %></h3></td></tr>
+</table>

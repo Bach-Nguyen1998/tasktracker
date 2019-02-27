@@ -1,0 +1,93 @@
+<br/>
+<h3><u>Incomplete Tasks</u></h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Desc</th>
+      <th scope="col">Time spent</th>
+      <th scope="col">Task Options</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+    <%= if @current_user && task.user == @current_user.id && !task.complete do %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.desc %></td>
+        <td><%= task.time_spent %></td>
+
+        <td>
+          <%= link "More | ", to: Routes.task_path(@conn, :show, task) %>
+          <%= link "Edit | ", to: Routes.task_path(@conn, :edit, task) %>
+          <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"] %>
+        </td>
+      </tr>
+  <% end %>
+<% end %>
+  </tbody>
+</table>
+<br/>
+<h3><u>Complete Tasks</u></h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Desc</th>
+      <th scope="col">Time Spent</th>
+      <th scope="col">Clear Task</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+    <%= if @current_user && task.user == @current_user.id && task.complete do %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.desc %></td>
+        <td><%= task.time_spent %></td>
+        <td>
+          <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"] %>
+        </td>
+      </tr>
+  <% end %>
+<% end %>
+  </tbody>
+</table>
+
+<h3><u>All Tasks</u></h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Desc</th>
+      <th scope="col">Time Spent</th>
+      <th scope="col">Assigned To</th>
+      <th scope="col">Task Options</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.desc %></td>
+        <td><%= task.time_spent %></td>
+        <td><%= Tracker.Users.get_user(task.user).name %></td>
+        <td>
+          <%= link "More | ", to: Routes.task_path(@conn, :show, task) %>
+          <%= link "Edit | ", to: Routes.task_path(@conn, :edit, task) %>
+          <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"] %>
+        </td>
+      </tr>
+<% end %>
+  </tbody>
+</table>
+
+
+
+<span><%= link "New Task", to: Routes.task_path(@conn, :new) %></span>
