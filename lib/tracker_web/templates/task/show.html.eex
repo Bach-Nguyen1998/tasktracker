@@ -26,8 +26,6 @@
     <th scope="col">Start</th>
     <th scope="col">End</th>
   </thead>
-
-
   <%= for time_stamp <- Tracker.Time_Stamps.list_timestamps do %>
     <%= if Tracker.Tasks.get_task(time_stamp.task_id).id == @task.id do %>
     <tr class="tb-show" data-tb-id="<%= time_stamp.id %>"> 
@@ -43,15 +41,14 @@
 
         <td><input class="newend" data-tb-id= "<%= time_stamp.id%>"
                type="datetime-local" name="newend" value="<%= time_stamp.start_time %>"></td>
-        <td> <input class="submit" data-tb-id= "<%= time_stamp.id%>" type="submit" value="submit"> </td>
+        <td> <input class="submit" data-tb-id= "<%= time_stamp.id%>" type="submit" value="Submit"> </td>
       </form>
     </tr>
-  
+<script>
+window.time_stamp_path= "<%= Routes.time_stamp_path(@conn, :update, time_stamp.id) %>";
+</script>
+ 
   <% end %>
   <% end %>
 </table
-<script>
-window.time_stamp_path_update = "<%=Routes.time_stamp_path(@conn, :update) %>";
-
-</script>
 <span><%= link "Edit", to: Routes.task_path(@conn, :edit, @task) %></span>

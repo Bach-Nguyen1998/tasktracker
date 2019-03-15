@@ -1,3 +1,5 @@
+PART 1
+
 The Task Tracker app relies on a many-to-one relationship between two
 entities: A task and a user.
 
@@ -46,3 +48,23 @@ Also, the user option is a drop down menu. This is done to ensure
 that any person the user picks is in fact a valid user. If this 
 were a textbox or numberbox, the chance of error for the user 
 putting in the wrong name or ID increases.
+
+PART 2
+
+The enhanced task tracker added two main features: allowing users
+to be a manager & tracking time blocks for tasks. The manager
+designation is a field in the users table. This allows the query
+to find one's underlings to be:
+select *
+from user 
+where manager_id = [current_user.id]
+A manager can only assign tasks to himself or herself or his/her
+underlings. This is done via a list_underlings function. This
+maintains the constraint that only a manager can assign tasks
+to their underlings.
+Next, a time block is a seperate resource. It has a task id that
+it belongs to, a start time, and an end time.
+The buttons to designate a start and end time are on the index page
+of the task list. When one views the task, they can see all of the 
+time blocks associated with it. This allows all time blocks of a 
+task to be strictly associated with the corresponding task.

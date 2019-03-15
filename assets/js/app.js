@@ -47,7 +47,6 @@ $(function () {
 	  let correspondingForm = $(".tb-edit[data-tb-id=" + tbId + "]")
 	  $(correspondingForm).show();
 	  $(wrappingRow).hide();
-	  //  want to call prevent default jquery to prevent a page change in success
   })
   $('.submit').click((ev) => {
     let wrappingRow = $(ev.target).closest("tr");
@@ -58,16 +57,24 @@ $(function () {
     let newend = $('.newend[data-tb-id=' + timestampid +']').val();
     let text = JSON.stringify({
       time_stamp: {
-	time_stamp_id ; timestampid,
         task_id: task_id,
         start_time: newstart,
         end_time: newend},});
-    $.ajax(time_stamp_path_update, {
-      method: "post",
+    $.ajax(time_stamp_path, {
+      method: "put",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       data: text,
+      success: function (data) { 	
+           
+	  let correspondingDate = $(".tb-show[data-tb-id=" + timestampid + "]");
+	  $(wrappingRow).hide();
+	  $(correspondingDate).show();
+
+ }
     });
+  ev.preventDefault();
+
 
   });
 
