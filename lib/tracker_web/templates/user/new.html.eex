@@ -1,5 +1,5 @@
 <br/>
-<h1>New User</h1>
+<h1>Create Account</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
 <a href="/"> Go Back </a>

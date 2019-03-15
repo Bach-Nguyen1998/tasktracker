@@ -16,7 +16,11 @@
     <%= text_input f, :email %>
     <%= error_tag f, :email %>
   </div>
-
+  <div class="form-group">
+    <%= label f, :manager_id %>
+    <%= select f, :manager_id, Tracker.Users.list_user %>
+    <%= error_tag f, :manager_id %>
+  </div>
   <div>
     <%= submit "Save" %>
   </div>

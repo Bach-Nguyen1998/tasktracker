@@ -1,19 +1,53 @@
-<h1>Show User</h1>
+</br>
 
-<ul>
+<table>
+<tr>
+<td>
+<div class="card" style="width: 18rem;">
+  <div class="card-header"> My Profile </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <div> <u>Name</u>: <%= @user.name %> </div>
+    </li>
+    <li class="list-group-item">     
+      <div> <u>Email</u>: <%= @user.email %></div>
+    </li> 
+    <%= if @user.manager_id != nil do %>
+      <li class="list-group-item">
+        <a>My manager is: </a>
+        <u><%= Tracker.Users.get_user(@user.manager_id).name %> </u>
+      </li>
+    <% else %>
+      <li class="list-group-item"> 
+        <u> No manager. </u>
+      </li>
+    <% end %>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @user.name %>
-  </li>
+    </li>
+ </ul>
+</div>
+</td>
+<%= if Enum.count(Tracker.Users.list_underlings(@current_user.id)) > 1 do %>
+<td>
+<div class="card" style="width: 18rem;">
+  <div class="card-header"> My Employees </div>
+  <ul class="list-group list-group-flush">
+	<%= for user <- Tracker.Users.list_users do %>
+    <%= if @current_user.id == user.manager_id do %>
+    <li class="list-group-item"> 
+      <%= user.name %>
+    </li>
+    <% end %>
+  <% end %>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
-
-</ul>
-
+</div>
+</td>
+<% end %>
+</tr>
+</table>
+<%= if Enum.count(Tracker.Users.list_underlings(@current_user.id)) > 1 do %>
+ <a href="/report">Show Report </a>
+<% end %>
+</br>
 <span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>
-<a href="/">Go Back </a>
-<!-- <span><%= link "Back", to: Routes.user_path(@conn, :index) %></span> -->
+</br>

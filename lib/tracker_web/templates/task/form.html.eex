@@ -16,26 +16,15 @@
     <%= textarea f, :desc %>
     <%= error_tag f, :desc %>
   </div>
-
-  <div class="form-group">
-    <%= label f, :time_spent %>
-    <%= number_input f, :time_spent %>
-    <%= error_tag f, :time_spent %>
-  </div>
-
-  
-  <div class="form-group">
-    <%= label f, :complete %>
-    <%= checkbox f, :complete %>
-    <%= error_tag f, :complete %>
-  </div>
-
   
   <div class="form-group">
     <%= label f, :user %>
-    <%= select f, :user, Tracker.Users.list_users %>
+    <!-- Only show the underlings -->
+    <%= select f, :user, Tracker.Users.list_underlings(@current_user.id) %>
     <%= error_tag f, :user %>
   </div>
+ 
+
 
   <div>
     <%= submit "Save" %>

@@ -68,8 +68,8 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
 config :tracker, Tracker.Repo,
-  username: "tracker",
-  password: "5zuglkvy",
-  database: "tracker_dev",
+  username: "tracker2",
+  password: "fortracker2",
+  database: "tracker2",
   hostname: "localhost",
   pool_size: 10

@@ -11,8 +11,8 @@ config :logger, level: :warn
 
 # Configure your database
 config :tracker, Tracker.Repo,
-  username: "tracker",
-  password: "5zuglkvy",
-  database: "tracker_test",
+  username: "tracker2",
+  password: "fortracker2",
+  database: "tracker2",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

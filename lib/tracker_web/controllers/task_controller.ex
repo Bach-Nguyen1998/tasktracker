@@ -15,6 +15,10 @@ defmodule TrackerWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
+    #ts_params = %{"start_time" => nil, "end_time" => nil}
+    # create associated time stamp with task
+    #TrackerWeb.TimeStampController.create(conn, %{"time_stamp" => ts_params})
+    # create the task
     case Tasks.create_task(task_params) do
       {:ok, task} ->
         conn
@@ -24,6 +28,7 @@ defmodule TrackerWeb.TaskController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+
   end
 
   def show(conn, %{"id" => id}) do

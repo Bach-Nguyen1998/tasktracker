@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	    <%= if @current_user do %>
 	      <a class="navbar-brand">
-	        User: <%= @current_user.name %> 
+	        Welcome, <%= @current_user.name %> 
 	        <%= link("Logout", to: Routes.session_path(@conn, :delete), method: :delete)%>
               </a>
 	    <% else %>
@@ -33,11 +33,19 @@
 	      <li class="nav-item">
 		<div class="col"> <a class="nav-link" href="/">Home</a> </div>
 	      </li> 
-	      <li>
-		<div class="col"> <a class="nav-link" href="/users/new">Create Account</a> </div>
-	      </li>
               <li>
 		<div class="col"> <a class="nav-link" href="/taskmenu">Task Menu</a> </div>
+	      </li>
+		<%= if @current_user != nil do %>
+		  <li>
+	            <div class="col"> <a class="nav-link" href="/users/<%= @current_user.id %>">My Account</a> </div>
+		  </li>
+		<% else %>
+		  <li>
+                     <div class="col"> <a class="nav-link" href="/users/new">Create Account</a> </div>
+                  </li>
+	        <% end %>
+		
 	      </li>
 	    </ul> </div>
 	</nav>

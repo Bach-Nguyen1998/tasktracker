@@ -4,9 +4,21 @@ defmodule Tracker.Users do
   alias Tracker.Users.User
 
   # list all users
-  def list_users do
-    Repo.all(User) 
+  def list_underlings(user_id) do
+    query = from u in "users",
+            where: u.manager_id == ^user_id or ^user_id == u.id,
+            select: {u.name, u.id}
+    
+    Repo.all(query)
+  end
+
+  def list_user do
+    Repo.all(User)
     |> Enum.map(&{&1.name, &1.id})
+  end
+ 
+  def list_users do
+    Repo.all(User)
   end
 
   # retreive user by ID

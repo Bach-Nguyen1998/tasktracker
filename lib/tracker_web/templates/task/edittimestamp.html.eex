@@ -1,0 +1,11 @@
+<h1>Edit Timeblock</h1>
+<form>
+  Start Time:
+  <input type="datetime-local" name="newstart">
+  End Time
+  <input type="datetime-local" name="newend">
+  <input type="submit" value="send">
+</form>
+
+
+

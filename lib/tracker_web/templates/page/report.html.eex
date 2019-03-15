@@ -1,0 +1,18 @@
+<h3> Underling Report </h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Task</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <%= for task <- Tracker.Tasks.list_tasks do %>
+    <%= if Tracker.Users.get_user(task.user).manager_id == @current_user.id do %>
+    <tr> <td> <%= Tracker.Users.get_user(task.user).name %></td> 
+         <td> <%= task.title %> </td>
+         <td> <%= link "View", to: Routes.task_path(@conn, :show, task) %> </td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>

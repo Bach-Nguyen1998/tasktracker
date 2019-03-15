@@ -13,16 +13,45 @@
   </li>
 
   <li>
-    <strong>Time spent:</strong>
-    <%= @task.time_spent %>
+    <strong>Assigned to:</strong>
+    <%= Tracker.Users.get_user!(@task.user).name %>
   </li>
 
-  <li>
-    <strong>Complete:</strong>
-    <%= @task.complete %>
-  </li>
 
 </ul>
+</br>
+<h3>Task Log</h3>
+<table class="table table-hover">
+  <thead>
+    <th scope="col">Start</th>
+    <th scope="col">End</th>
+  </thead>
 
+
+  <%= for time_stamp <- Tracker.Time_Stamps.list_timestamps do %>
+    <%= if Tracker.Tasks.get_task(time_stamp.task_id).id == @task.id do %>
+    <tr class="tb-show" data-tb-id="<%= time_stamp.id %>"> 
+         <td class="start"> <%= time_stamp.start_time %> </td>
+         <td class="end"> <%= time_stamp.end_time %> </td> 
+         <td class="edit"> <button> Edit </button> </td>
+    </tr>
+    <tr class="tb-edit" data-tb-id="<%= time_stamp.id%>" style="display: none" data-task-id="<%= @task.id %>">
+        <form>
+        
+        <td> <input class="newstart" data-tb-id= "<%= time_stamp.id%>"
+                type="datetime-local" name="newstart" value="<%= time_stamp.start_time %>"> </td>
+
+        <td><input class="newend" data-tb-id= "<%= time_stamp.id%>"
+               type="datetime-local" name="newend" value="<%= time_stamp.start_time %>"></td>
+        <td> <input class="submit" data-tb-id= "<%= time_stamp.id%>" type="submit" value="submit"> </td>
+      </form>
+    </tr>
+  
+  <% end %>
+  <% end %>
+</table
+<script>
+window.time_stamp_path_update = "<%=Routes.time_stamp_path(@conn, :update) %>";
+
+</script>
 <span><%= link "Edit", to: Routes.task_path(@conn, :edit, @task) %></span>
-<span><%= link "Back", to: Routes.task_path(@conn, :index) %></span>
